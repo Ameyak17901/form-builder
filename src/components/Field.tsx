@@ -3,6 +3,7 @@ import type { FieldType } from "../types/FieldType";
 import { RadioButton } from "./inputs/RadioButton";
 import { TextInput } from "./inputs/TextInput";
 import { SelectInput } from "./inputs/CustomSelectInput";
+import { useForm } from "react-hook-form";
 
 interface Props {
   field: FieldType;
@@ -27,6 +28,9 @@ const typeToComponentMapping: Record<
 };
 
 export const Field = ({ field }: Props) => {
+
+  const { register } = useForm()
+
   const FieldComponent = typeToComponentMapping[field.type] as React.FC<{
     type: string;
     label: string;
@@ -36,5 +40,5 @@ export const Field = ({ field }: Props) => {
       | undefined;
   }>;
 
-  return <FieldComponent type={field.type} label={field.label}  options={field.options}/>;
+  return <FieldComponent type={field.type} label={field.label} {...register(field.label, field.validations)}  options={field.options}/>;
 };

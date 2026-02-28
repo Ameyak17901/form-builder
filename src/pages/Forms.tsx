@@ -7,7 +7,6 @@ import { Link } from "react-router";
 
 export const Forms = () => {
   const data = useForm();
-  console.log(data);
 
   const navigate = useNavigate();
 

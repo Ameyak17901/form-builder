@@ -67,3 +67,13 @@ export default tseslint.config([
   },
 ])
 ```
+
+## Instruction to setup:
+1. Install the dependencies:
+   ```bash
+   npm install
+   ```
+2. Start the application:
+   ```bash
+   npm run dev
+   ```

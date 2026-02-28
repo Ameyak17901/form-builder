@@ -16,17 +16,19 @@ const UpdateSettings = ({
 }: Props) => {
   const [label, setLabel] = useState(field.label);
   const [options, setOptions] = useState(field.options);
+  const [validations, setValidations] = useState(field.validations);
 
   const updateField = () => {
     setSelectedField({
       ...field,
       label,
       options,
+      validations: validations,
     });
 
     setDroppedFields((prev) => [
       ...prev.filter((f) => f.id !== field.id),
-      { ...field, label, options },
+      { ...field, label, options, validations },
     ]);
   };
   return (
@@ -55,6 +57,24 @@ const UpdateSettings = ({
           ))}
         </div>
       )}
+
+      <TextField
+        type="number"
+        label="Max Length"
+        value={validations?.maxLength}
+        onChange={(e) =>
+          setValidations({ ...validations, maxLength: Number(e.target.value) })
+        }
+      />
+      {/* <RadioButton
+        label="Required"
+        type="radio"
+        value={validations?.required || false}
+        options={[
+          { id: nanoid(), label: "Yes", value: "true" },
+          { id: nanoid(), label: "No", value: "false" },
+        ]}
+      /> */}
 
       <div className="flex justify-center bottom-0">
         <Button variant="contained" size="small" onClick={updateField}>

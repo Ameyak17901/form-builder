@@ -1,11 +1,13 @@
 import type { UniqueIdentifier } from "@dnd-kit/core";
 import { useSortable } from "@dnd-kit/sortable";
-import type { FieldType } from "../../types/FieldType";
+import type { FieldType, Validations } from "../../types/FieldType";
 import { CSS } from "@dnd-kit/utilities";
 import { DragHandle } from "@mui/icons-material";
 import { TextInput } from "./TextInput";
 import { RadioButton } from "./RadioButton";
 import { SelectInput } from "./CustomSelectInput";
+
+import { useForm } from "react-hook-form";
 
 const typeFieldMap: Record<
   string,
@@ -16,13 +18,14 @@ const typeFieldMap: Record<
     options?:
       | { id: UniqueIdentifier; label: string; value: string }[]
       | undefined;
+    validations?: Validations | undefined  
   }>
 > = {
   text: TextInput,
   number: TextInput,
   radio: RadioButton,
   select: SelectInput,
-  date: TextInput
+  date: TextInput,
 };
 
 interface Props {
@@ -42,6 +45,11 @@ const DefaultInput = ({ id, field, setSelectedField }: Props) => {
     transition,
   };
 
+  const {
+    register,
+    formState: { errors },
+  } = useForm();
+
   const Field = typeFieldMap[field.type] as React.FC<{
     type: string;
     label: string;
@@ -49,6 +57,7 @@ const DefaultInput = ({ id, field, setSelectedField }: Props) => {
     options?:
       | { id: UniqueIdentifier; label: string; value: string }[]
       | undefined;
+    validations?: Validations | undefined;
   }>;
   return (
     <div
@@ -64,7 +73,14 @@ const DefaultInput = ({ id, field, setSelectedField }: Props) => {
         label={field.label}
         placeholder={field.placeholder}
         options={field.options}
+        {...register(field.label, {
+          validate: (value) => { 
+            if (!field.validations) return true;
+            return field.validations.maxLength ? value.length <= field.validations.maxLength : true
+          }
+        })}
       />
+      {errors && <span>{errors.root?.message}</span>}
       <DragHandle {...listeners} />
     </div>
   );

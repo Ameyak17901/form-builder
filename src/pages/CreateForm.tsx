@@ -30,7 +30,7 @@ export const CreateForm = () => {
   };
 
   return (
-    <div className="flex justify-evenly mx-auto w-full h-full items-center">
+    <div className="flex justify-evenly pt-4 mx-auto w-full h-full items-center">
       <DndContext
         onDragEnd={(event: DragEndEvent) => {
           const { active, over } = event;

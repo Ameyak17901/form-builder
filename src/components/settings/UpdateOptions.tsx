@@ -20,7 +20,6 @@ export const UpdateOptions = ({ id, label, value, setOptions }: Props) => {
       const options = prev
         ? [...prev.filter((option) => option.id !== id), option]
         : undefined;
-      console.log(options);
       return options;
     });
   };

@@ -6,7 +6,6 @@ import { Button } from "@mui/material";
 
 export const Preview = () => {
   const fields = useLocation().state as FieldType[];
-  console.log(fields);
 
   const navigate = useNavigate();
 
