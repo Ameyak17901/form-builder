@@ -1,9 +1,11 @@
 import { Button, Grid } from "@mui/material";
-import { Form } from "../components/Form";
+import React from "react";
 import { useForm } from "../hooks/useForm";
 import type { FormType } from "../types/FormType";
 import { useNavigate } from "react-router-dom";
 import { Link } from "react-router";
+
+const Form = React.lazy(() => import("../components/Form"));
 
 export const Forms = () => {
   const data = useForm();
@@ -14,7 +16,9 @@ export const Forms = () => {
     return (
       <div className="flex flex-col w-full items-center justify-center gap-1">
         <p>No Forms?</p>
-        <Link className="text-blue-500 hover:text-blue-600" to="/create">Create one</Link>
+        <Link className="text-blue-500 hover:text-blue-600" to="/create">
+          Create one
+        </Link>
       </div>
     );
 

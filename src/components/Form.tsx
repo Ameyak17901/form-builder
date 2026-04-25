@@ -12,7 +12,7 @@ interface Props {
   id: UniqueIdentifier;
 }
 
-export const Form = ({ fields, id }: Props) => {
+const Form = ({ fields, id }: Props) => {
   const navigate = useNavigate();
   let data = useForm() as FormType[];
 
@@ -49,3 +49,5 @@ export const Form = ({ fields, id }: Props) => {
     </Grid>
   );
 };
+
+export default Form;
